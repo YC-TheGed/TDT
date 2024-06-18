@@ -590,8 +590,8 @@ function displayRandomContent() {
   const randomImageTop = document.getElementById("per-tarot-card-1");
   const cardId = tarotcards1[randomIndex].id;
 
-  randomImage.src = tarotcards1[randomIndex].image;
-  randomImageTop.src = tarotcards1[randomIndex].image;
+  randomImage.dataset.lazy = tarotcards1[randomIndex].image;
+  randomImageTop.dataset.lazy = tarotcards1[randomIndex].image;
   randomCopy.innerHTML = `<p>${randomContent}</p>`;
   localStorage.setItem("card-1-id", cardId);
 }
