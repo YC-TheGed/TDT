@@ -607,36 +607,38 @@ function submitThePage(event) {
   window.location.href = "feeling.html";
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const loadImages = (image) => {
-    // Add cache buster to prevent caching issues
-    const cacheBuster = `?t=${new Date().getTime()}`;
-    const src = image.getAttribute("src") + cacheBuster;
-
-    image.setAttribute("src", src);
-    image.onload = () => {
-      image.removeAttribute("src");
-    };
-  };
-
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver((entries, observer) => {
+function initLazyLoading() {
+  const observer = new IntersectionObserver(
+    (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          loadImages(entry.target);
-          observer.unobserve(entry.target);
+          const img = entry.target;
+          const src = img.getAttribute("src");
+
+          if (!src) {
+            return;
+          }
+
+          img.setAttribute("src", "");
+          img.setAttribute("data-lazy", src);
+
+          const image = new Image();
+          image.src = src;
+          image.onload = () => {
+            img.removeAttribute("data-lazy");
+            img.setAttribute("src", src);
+            observer.unobserve(img);
+          };
         }
       });
-    });
+    },
+    { rootMargin: "200px 0px" }
+  );
 
-    images.forEach((img) => {
-      observer.observe(img);
-    });
-  } else {
-    // Fallback for browsers that do not support IntersectionObserver
-    images.forEach((img) => {
-      loadImages(img);
-    });
-  }
-});
+  images.forEach((img) => {
+    observer.observe(img);
+  });
+}
+
+window.addEventListener("DOMContentLoaded", initLazyLoading);
 submitBTN.addEventListener("click", submitThePage);
