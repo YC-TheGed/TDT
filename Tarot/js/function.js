@@ -162,7 +162,7 @@ function animateProgressBar(progressBar) {
         statusText.textContent = "It has been answered...";
       }
     }
-  }, 50);
+  }, 35);
 }
 
 //Pop-Up Form Submit Function
