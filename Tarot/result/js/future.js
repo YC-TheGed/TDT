@@ -4,14 +4,13 @@ window.addEventListener("load", function () {
   const card3ID = localStorage.getItem("card-3-id");
   const personalizedone = document.getElementById("per-one1");
 
+  displayCards();
   if (hisfirstname) {
     noRepeat();
-    displayCards();
     personalizedone.textContent = `Well, ${firstname}... I'm surprised, but now let's see what's the near future between you and ${hisfirstname}.`;
     perAll();
   } else {
     noRepeat();
-    displayCards();
     personalizedone.textContent = `Well, ${firstname}... I'm surprised, but now let's see what's the near future between you and him.`;
     perAll2();
   }
@@ -85,7 +84,7 @@ function displayCards() {
 
   // Function to generate a random card that hasn't been shown before
   function getUniqueRandomCard() {
-    const MAX_ITERATIONS = 500; // Maximum number of iterations
+    const MAX_ITERATIONS = 1000; // Maximum number of iterations
     let iterations = 0;
     let randomIndex;
     let randomCard;
