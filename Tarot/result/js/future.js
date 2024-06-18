@@ -4,6 +4,8 @@ window.addEventListener("load", function () {
   const card3ID = localStorage.getItem("card-3-id");
   const personalizedone = document.getElementById("per-one1");
 
+  noRepeat();
+  displayCards();
   if (hisfirstname) {
     personalizedone.textContent = `Well, ${firstname}... I'm surprised, but now let's see what's the near future between you and ${hisfirstname}.`;
     perAll();
