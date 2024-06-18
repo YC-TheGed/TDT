@@ -606,13 +606,6 @@ function submitThePage(event) {
   window.location.href = "feeling.html";
 }
 
-function preloadImage(url, callback) {
-  const image = new Image();
-  image.src = url;
-  image.onload = () => callback(url);
-  //image.onerror = () => callback('path/to/default.jpg'); // Fallback image on error
-}
-
 function initLazyLoading() {
   const images = document.querySelectorAll("img[src]");
 
