@@ -653,7 +653,5 @@ function hidePreloader() {
   }
 }
 
-// Show the preloader
-document.getElementById("preloader").style.display = "flex";
 window.addEventListener("DOMContentLoaded", initLazyLoading);
 submitBTN.addEventListener("click", submitThePage);
