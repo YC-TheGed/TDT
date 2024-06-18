@@ -127,7 +127,7 @@ function scrollToProgressBar() {
 
   setTimeout(() => {
     progressBarSection.scrollIntoView(scrollOptions);
-  }, 500); // Adjust this delay as needed
+  }, 100); // Adjust this delay as needed
 }
 
 //Progress Bar Animation
