@@ -607,6 +607,13 @@ function submitThePage(event) {
   window.location.href = "feeling.html";
 }
 
+function preloadImage(url, callback) {
+  const image = new Image();
+  image.src = url;
+  image.onload = () => callback(url);
+  //image.onerror = () => callback('path/to/default.jpg'); // Fallback image on error
+}
+
 function initLazyLoading() {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -619,16 +626,12 @@ function initLazyLoading() {
             return;
           }
 
-          img.setAttribute("src", "");
-          img.setAttribute("data-lazy", src);
-
-          const image = new Image();
-          image.src = src;
-          image.onload = () => {
-            img.removeAttribute("data-lazy");
-            img.setAttribute("src", src);
+          // Preload the image before setting the src attribute
+          preloadImage(src, (loadedUrl) => {
+            img.setAttribute("src", loadedUrl);
+            img.removeAttribute("data-src");
             observer.unobserve(img);
-          };
+          });
         }
       });
     },
