@@ -648,9 +648,18 @@ function initLazyLoading() {
 let preloaderHidden = false;
 function hidePreloader() {
   if (!preloaderHidden) {
-    document.getElementById("preloader").style.display = "none";
-    preloaderHidden = true;
+    const preloader = document.getElementById("preloader");
+    if (preloader) {
+      preloader.style.display = "none";
+      preloaderHidden = true;
+    }
   }
+}
+
+// Show the preloader
+const preloader = document.getElementById("preloader");
+if (preloader) {
+  preloader.style.display = "flex";
 }
 
 window.addEventListener("DOMContentLoaded", initLazyLoading);
