@@ -171,7 +171,7 @@ function submitTheAnswer(event) {
   const firstname = firstNameInput.value.trim();
   if (firstname) {
     localStorage.setItem("firstname", firstname);
-    window.location.href = "/result";
+    window.location.href = "/Tarot/result";
   } else {
     alert("Please Enter Your First Name!😊");
   }
