@@ -1,4 +1,5 @@
 const submitBTN = document.getElementById("submit");
+const images = document.querySelectorAll("img[src]");
 
 window.addEventListener("load", function () {
   const firstname = localStorage.getItem("firstname");
@@ -606,4 +607,38 @@ function submitThePage(event) {
   window.location.href = "feeling.html";
 }
 
+function initLazyLoading() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          const src = img.getAttribute("src");
+
+          if (!src) {
+            return;
+          }
+
+          img.setAttribute("src", "");
+          img.setAttribute("data-lazy", src);
+
+          const image = new Image();
+          image.src = src;
+          image.onload = () => {
+            img.removeAttribute("data-lazy");
+            img.setAttribute("src", src);
+            observer.unobserve(img);
+          };
+        }
+      });
+    },
+    { rootMargin: "200px 0px" }
+  );
+
+  images.forEach((img) => {
+    observer.observe(img);
+  });
+}
+
+window.addEventListener("DOMContentLoaded", initLazyLoading);
 submitBTN.addEventListener("click", submitThePage);
