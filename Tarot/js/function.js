@@ -159,7 +159,7 @@ function animateProgressBar(progressBar) {
       } else if (width < 75) {
         statusText.textContent = "Revealing insights...";
       } else {
-        statusText.textContent = "👇 It has been answered... 👇";
+        statusText.textContent = "It has been answered...";
       }
     }
   }, 50);
