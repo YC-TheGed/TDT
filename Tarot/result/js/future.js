@@ -85,7 +85,7 @@ function displayCards() {
 
   // Function to generate a random card that hasn't been shown before
   function getUniqueRandomCard() {
-    const MAX_ITERATIONS = 1000; // Maximum number of iterations
+    const MAX_ITERATIONS = 100; // Maximum number of iterations
     let iterations = 0;
     let randomIndex;
     let randomCard;
