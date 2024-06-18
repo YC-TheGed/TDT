@@ -628,8 +628,8 @@ function initLazyLoading() {
 
           // Preload the image before setting the src attribute
           preloadImage(src, (loadedUrl) => {
-            img.setAttribute("src", loadedUrl);
-            img.removeAttribute("data-src");
+            img.src = loadedUrl;
+            img.removeAttribute("data-lazy");
             observer.unobserve(img);
           });
         }
