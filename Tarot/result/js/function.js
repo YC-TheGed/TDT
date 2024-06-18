@@ -32,7 +32,6 @@ window.addEventListener("load", function () {
       imageContainer.classList.add("show");
     }, 500);
   };
-  hidePreloader();
 });
 
 const tarotcards1 = [
@@ -595,8 +594,6 @@ function displayRandomContent() {
   randomImageTop.src = tarotcards1[randomIndex].image;
   randomCopy.innerHTML = `<p>${randomContent}</p>`;
   localStorage.setItem("card-1-id", cardId);
-
-  hidePreloader();
 }
 
 function submitThePage(event) {
@@ -642,24 +639,6 @@ function initLazyLoading() {
   images.forEach((img) => {
     observer.observe(img);
   });
-}
-
-// Function to hide the preloader
-let preloaderHidden = false;
-function hidePreloader() {
-  if (!preloaderHidden) {
-    const preloader = document.getElementById("preloader");
-    if (preloader) {
-      preloader.style.display = "none";
-      preloaderHidden = true;
-    }
-  }
-}
-
-// Show the preloader
-const preloader = document.getElementById("preloader");
-if (preloader) {
-  preloader.style.display = "flex";
 }
 
 window.addEventListener("DOMContentLoaded", initLazyLoading);
