@@ -1,5 +1,4 @@
 const submitBTN = document.getElementById("submit");
-const images = document.querySelectorAll("img[src]");
 
 window.addEventListener("load", function () {
   const firstname = localStorage.getItem("firstname");
@@ -615,6 +614,8 @@ function preloadImage(url, callback) {
 }
 
 function initLazyLoading() {
+  const images = document.querySelectorAll("img[src]");
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -626,12 +627,16 @@ function initLazyLoading() {
             return;
           }
 
-          // Preload the image before setting the src attribute
-          preloadImage(src, (loadedUrl) => {
-            img.src = loadedUrl;
+          img.setAttribute("src", "");
+          img.setAttribute("data-lazy", src);
+
+          const image = new Image();
+          image.src = src;
+          image.onload = () => {
             img.removeAttribute("data-lazy");
+            img.setAttribute("src", src);
             observer.unobserve(img);
-          });
+          };
         }
       });
     },
