@@ -348,3 +348,18 @@ $("reading-form").submit(function (e) {
     },
   });
 });
+
+window.addEventListener("load", function () {
+  const preloader = document.getElementById("preloader");
+
+  // Fade out the preloader
+  setTimeout(function () {
+    preloader.style.opacity = "0";
+    preloader.style.transition = "opacity 0.5s ease";
+
+    // After the fade-out animation, hide preloader and show main content
+    setTimeout(function () {
+      preloader.style.display = "none";
+    }, 500);
+  }, 2000); // Adjust this delay as needed
+});
