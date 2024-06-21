@@ -13,7 +13,7 @@ window.addEventListener("load", function () {
     const personalizedone = document.getElementById("per-one1");
     const popUpHeadline = document.getElementById("popuph");
     personalizedone.textContent = `${firstname}, let's see how he feels about you.`;
-    popUpHeadline.textContent = `${firstname}, Your Next Card Will Show You What's Going To Happen For You & ${hisfirstname}`;
+    popUpHeadline.textContent = `${firstname}, Your Next Card Will Show You What's Going To Happen For You & Him`;
   }
 
   if (card2ID) {
