@@ -26,6 +26,37 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   </head>
   <body style="background-color: #0a2722">
+            <!-- Preloader -->
+        <div
+        id="preloader"
+        style="
+          position: fixed !important;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #faf7ee;
+          display: flex !important;
+          justify-content: center;
+          align-items: center;
+          vertical-align: middle;
+          z-index: 9999;
+        "
+      >
+        <div id="heart" style="text-align: center; justify-content: center">
+          <div><img src="./img/Loading Heart.png" /></div>
+          <div
+            style="
+              font-family: 'Courier New', Courier, monospace;
+              font-size: 18px;
+              font-weight: bold;
+              margin-top: 7px;
+            "
+          >
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
     <div class="main-container" style="background-color: white">
       <!--Top Section for 3 Tarot Cards-->
       <div class="container">
