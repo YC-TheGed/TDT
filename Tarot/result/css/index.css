@@ -214,7 +214,20 @@ body {
 
 #heart {
   position: fixed;
-  animation: shimmer 1s infinite alternate;
+  animation: shimmer 1.3s infinite alternate;
+}
+
+#heart1 {
+  width: 30%;
+  height: 30%;
+  margin-bottom: -23px;
+}
+
+#loading-text {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 20px;
 }
 
 @keyframes shimmer {
