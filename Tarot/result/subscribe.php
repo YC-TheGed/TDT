@@ -1,37 +1,44 @@
 <?php
 header('Content-Type: application/json');
-require_once 'aweber_api/aweber_api.php';
 
 // Get email and first name from the POST data
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
 
-// Aweber API Credentials
-$consumerKey = 'o99QrHIckb8g78oKwynxOwCsETvNVOc2';
-$consumerSecret = 'rn1b96dQayCsUIKvjbJXwhI4FXFLXjFP';
-$listId = 'awlist6721092';
+// HubSpot API Credentials
+$access_token = 'pat-na1-0f82d7e1-1c51-454a-939a-86e84dce50f7';
+$hubspot_api_url = 'https://api.hubapi.com/crm/v3/objects/contacts';
 
-try {
-    $accessToken = AweberAPI::getDataFromAweberID($consumerKey, $consumerSecret);
+// Prepare the contact properties
+$properties = [
+    'email' => $email,
+    'firstname' => $firstName
+];
 
-    //Create an Aweber API Object
-    $aweber = new AweberAPI($accessToken['access_token'], $accessToken['access_token_secret']);
+// Prepare the request data
+$request_body = json_encode([
+    'properties' => $properties
+]);
 
-    //Store email and first name to the list
-    $account = $aweber->getAccount();
-    $listUrl = "/accounts/{$account->id}/lists/{$listId}";
-    $list = $account->loadFromUrl($listUrl);
-    
-    $subscriber = $list->subscribers->create([
-        'email' => $email,
-        'name' => $firstName
-    ]);
+// Set up cURL request
+$ch = curl_init($hubspot_api_url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+    'Authorization: Bearer ' . $access_token
+]);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $request_body);
 
-    if ($subscriber->status == 'subscribed') {
-        echo json_encode(['status' => 'success', 'message' => 'Subscriber added to the list!']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => $subscriber->error_message]);
-    }
-} catch (Exception $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+// Execute the request
+$response = curl_exec($ch);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+// Check the response
+if ($http_code == 201) {
+    echo json_encode(['status' => 'success', 'message' => 'Contact added to HubSpot!']);
+} else {
+    $error_message = json_decode($response, true);
+    echo json_encode(['status' => 'error', 'message' => $error_message['message'] ?? 'Failed to add contact']);
 }
