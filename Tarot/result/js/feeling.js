@@ -332,7 +332,7 @@ const tarotcards2 = [
   },
 ];
 
-$("#reading-form").submit(function (e) {
+$("reading-form").submit(function (e) {
   e.preventDefault();
   var email = $("#email").val();
   var firstName = localStorage.getItem("firstname");
