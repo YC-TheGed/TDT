@@ -1,4 +1,63 @@
 window.addEventListener("load", function () {
+  const form = document.getElementById("reading-form");
+  form.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const email = document.getElementById("email").value;
+    const firstName = localStorage.getItem("firstname");
+
+    // Validate inputs
+    if (!email || !firstName) {
+      console.error("Email or first name is missing.");
+      return;
+    }
+
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("firstName", firstName);
+
+    console.log("Sending data to PHP script:", email, firstName);
+
+    // Send data using fetch
+    fetch("subscribe.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            "Network response was not ok: " + response.statusText
+          );
+        }
+        return response.text(); // Get the response as text first
+      })
+      .then((text) => {
+        console.log("Raw response:", text); // Log the raw response
+        try {
+          return JSON.parse(text); // Try to parse the JSON
+        } catch (error) {
+          console.error("JSON parse error:", error);
+          throw new Error("Invalid JSON response");
+        }
+      })
+      .then((data) => {
+        console.log("Parsed data:", data);
+        if (data.status === "success") {
+          console.log("Success:", data.message);
+        } else {
+          console.error("Error:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      })
+      .finally(() => {
+        console.log("Initiating delay before redirecting...");
+        window.location.href = "future.html";
+      });
+  });
+  
   const firstname = localStorage.getItem("firstname");
   const hisfirstname = localStorage.getItem("his-name");
   const card2ID = localStorage.getItem("card-2-id");
