@@ -1,8 +1,27 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit(0);
+}
+
+$input = json_decode(file_get_contents('php://input'), true);
+
+// Get the raw POST data
+$json = file_get_contents('php://input');
+
+// Decode the JSON data
+$data = json_decode($json, true);
 
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-$firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
+$firstName = strip_tags($_POST['firstName']);
 
 $access_token = 'pat-na1-0f82d7e1-1c51-454a-939a-86e84dce50f7';
 $hubspot_api_url = 'https://api.hubapi.com/crm/v3/objects/contacts';
@@ -35,3 +54,4 @@ if ($http_code == 201) {
     $error_message = json_decode($response, true);
     echo json_encode(['status' => 'error', 'message' => $error_message['message'] ?? 'Failed to add contact']);
 }
+
