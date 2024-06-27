@@ -332,39 +332,6 @@ const tarotcards2 = [
   },
 ];
 
-$("reading-form").submit(function (e) {
-  e.preventDefault();
-  var email = $("#email").val();
-  var firstName = localStorage.getItem("firstname");
-
-  // Create FormData object
-  var formData = new FormData();
-  formData.append("email", email);
-  formData.append("firstName", firstName);
-
-  $.ajax({
-    type: "POST",
-    url: "/subscribe.php",
-    data: formData,
-    processData: false,
-    contentType: false,
-    success: function (data) {
-      // Assuming `data` is parsed into JSON automatically
-      if (data.status === "success") {
-        console.log("Success:", data.message);
-        // Handle success
-      } else {
-        console.error("Error:", data.message);
-        // Handle error
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error:", textStatus, errorThrown);
-      // Handle error
-    },
-  });
-});
-
 window.addEventListener("load", function () {
   const preloader = document.getElementById("preloader");
 
