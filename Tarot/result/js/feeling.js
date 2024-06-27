@@ -20,7 +20,7 @@ window.addEventListener("load", function () {
     console.log("Sending data to PHP script:", email, firstName);
 
     // Send data using fetch
-    fetch("subscribe.php", {
+    fetch("/result/subscribe.php", {
       method: "POST",
       body: formData,
     })
