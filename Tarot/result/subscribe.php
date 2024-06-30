@@ -23,7 +23,7 @@ $data = json_decode($json, true);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 $firstName = strip_tags($_POST['firstName']);
 
-$access_token = 'pat-na1-0f82d7e1-1c51-454a-939a-86e84dce50f7';
+$access_token = '';
 $hubspot_api_url = 'https://api.hubapi.com/crm/v3/objects/contacts';
 
 $properties = [
